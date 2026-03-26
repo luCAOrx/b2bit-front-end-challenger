@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/manrope";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.9851 0 0);
+  --foreground: oklch(0.9851 0 0);
+  --text-primary: oklch(0.6485 0.1735 248.49);
+  --text-primary-foreground: oklch(0.5542 0.046 257.53);
+  --text-secondary: oklch(0.5542 0.046 257.53);
+  --text-secondary-foreground: oklch(0.274 0.084 254.04);
+  --primary-button: oklch(0.6485 0.1735 248.49);
+  --secondary-button: oklch(0.9288 0.0126 255.51);
+  --like: oklch(0.6534 0.1835 23.68);
+  --border: oklch(0.9288 0.0126 255.51);
+  --input-background: oklch(1 0 0);
+  --input-placeholder: oklch(0.5542 0.046 257.53);
+  --text-post-primary: oklch(0.3717 0.0449 257.42);
+  --header-and-footer-background: oklch(0.9851 0 0);
+}
+
+.dark {
+  --background: oklch(0.15 0.0208 264.34);
+  --foreground: oklch(0.2084 0.0417 266.36);
+  --text-primary: oklch(1 0 0);
+  --text-primary-foreground: oklch(0.9851 0 0);
+  --text-secondary: oklch(0.7038 0.0402 256.99);
+  --text-secondary-foreground: oklch(0.7107 0.0351 256.79);
+  --primary-button: oklch(0.6485 0.1735 248.49);
+  --secondary-button: oklch(0.9288 0.0126 255.51);
+  --like: oklch(0.6534 0.1835 23.68);
+  --border: oklch(0.5542 0.046 257.53);
+  --input-background: oklch(0.2799 0.0408 260.33);
+  --input-placeholder: oklch(0.5542 0.046 257.53);
+  --text-post-primary: oklch(0.869 0.0198 252.89);
+  --header-and-footer-background: oklch(0.2084 0.0417 266.36);
+}
+
+@theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --color-background-linear-gradient: linear-gradient(
+    to bottom,
+    var(--background),
+    var(--foreground)
+  );
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-text-primary: var(--text-primary);
+  --color-text-primary-foreground: var(--text-primary-foreground);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-secondary-foreground: var(--text-secondary-foreground);
+  --color-primary-button: var(--primary-button);
+  --color-secondary-button: var(--secondary-button);
+  --color-like: var(--like);
+  --color-border: var(--border);
+  --color-input-background: var(--input-background);
+  --color-input-placeholder: var(--input-placeholder);
+  --color-text-post-primary: var(--text-post-primary);
+  --color-header-and-footer-background: var(--header-and-footer-background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-primary;
+  }
+  html {
+    @apply font-sans;
+  }
+}
