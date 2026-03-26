@@ -4,17 +4,22 @@ Essa é uma aplicação que simula algumas funcionalidades básicas do twitter
 
 <div align="center">
     <h2>Modo escuro</h2>
-    <img src="../.github/assets/dark-mode-sale-page.jpg" width="400" alt="Modo escuro da página de venda"/>
-    <img src="../.github/assets/dark-mode-create-sale.jpg" width="400" alt="Modo escuro para criação da venda"/>
-    <img src="../.github/assets/dark-mode-create-purchase.jpg" width="400" alt="Modo escuro para criação da compra"/>
-    <img src="../.github/assets/dark-mode-purchase-page.jpg" width="400" alt="Modo escuro da página de compra"/>
-    <img src="../.github/assets/dark-mode-purchase-details.jpg" width="400" alt="Modo escuro dos detalhes da compra"/>
+    <img src="./.github/assets/dark-mode-logged-in.jpg" width="400" alt="Modo escuro do feed com usuário deslogado"/>
+    <img src="./.github/assets/dark-mode-logged-out.jpg" width="400" alt="Modo escuro do feed com usuário deslogado"/>
+    <img src="./.github/assets/dark-mode-login.jpg" width="400" alt="Modo da página de login"/>
+    <img src="./.github/assets/dark-mode-register.jpg" width="400" alt="Modo escuro da página de cadastro"/>
+    <img src="./.github/assets/dark-mode-scrolling-feed.jpg" width="400" alt="Modo escuro da página de cadastro"/>
+    <img src="./.github/assets/dark-mode-search-post.jpg" width="400" alt="Modo escuro da página de cadastro"/>
+</div>
+
+<div align="center">
     <h2>Modo claro</h2>
-    <img src="../.github/assets/light-mode-sale-page.jpg" width="400" alt="Modo claro da página de venda"/>
-    <img src="../.github/assets/light-mode-create-sale.jpg" width="400" alt="Modo claro para criação da venda"/>
-    <img src="../.github/assets/light-mode-create-purchase.jpg" width="400" alt="Modo claro para criação da compra"/>
-    <img src="../.github/assets/light-mode-purchase-page.jpg" width="400" alt="Modo claro da página de compra"/>
-    <img src="../.github/assets/light-mode-purchase-details.jpg" width="400" alt="Modo claro dos detalhes da compra"/>
+    <img src="./.github/assets/light-mode-logged-in.jpg" width="400" alt="Modo claro da página de venda"/>
+    <img src="./.github/assets/light-mode-logged-out.jpg" width="400" alt="Modo claro para criação da venda"/>
+    <img src="./.github/assets/light-mode-login.jpg" width="400" alt="Modo claro para criação da compra"/>
+    <img src="./.github/assets/light-mode-register.jpg" width="400" alt="Modo claro da página de compra"/>
+    <img src="./.github/assets/light-mode-scrolling-feed.jpg" width="400" alt="Modo escuro da página de cadastro"/>
+    <img src="./.github/assets/light-mode-search-post.jpg" width="400" alt="Modo escuro da página de cadastro"/>
 </div>
 
 ## Tecnologias utilizadas
