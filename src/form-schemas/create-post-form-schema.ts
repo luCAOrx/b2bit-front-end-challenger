@@ -1,5 +1,13 @@
 import { z } from "zod"
 
+const FIVE_MEGA_BYTES_MAX_FILE_SIZE = 5 * 1024 * 1024
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+]
+
 export const CreatePostFormSchema = z.object({
   title: z
     .string()
@@ -7,5 +15,28 @@ export const CreatePostFormSchema = z.object({
   content: z
     .string()
     .min(1, { message: "O post deve ter pelo menos 1 caractere." }),
-  image: z.any().optional(),
+  image: z
+    .union([z.instanceof(File), z.string()])
+    .optional()
+    .refine(
+      (value) => {
+        if (!(value instanceof File)) return true
+
+        return value.size <= FIVE_MEGA_BYTES_MAX_FILE_SIZE
+      },
+      {
+        message: `A imagem é muito grande. Por favor, escolha uma imagem menor que 6MB.`,
+      }
+    )
+    .refine(
+      (file) => {
+        if (!file) return true
+
+        return ACCEPTED_IMAGE_TYPES.includes(file.type)
+      },
+      {
+        message:
+          "Por favor, faça o upload de um arquivo de imagem válido (JPEG, PNG ou WebP).",
+      }
+    ),
 })
