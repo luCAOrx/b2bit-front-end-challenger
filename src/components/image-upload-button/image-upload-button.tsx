@@ -4,38 +4,56 @@ import {
   DropzoneFileList,
   DropzoneTrigger,
   useDropzone,
+  type FileStatus,
 } from "@/components/ui/dropzone"
 import { Image as ImageIcon } from "lucide-react"
 import { useEffect } from "react"
 import { FileItem } from "./file-item"
 
 interface ImageUploadButtonProperties {
-  onChange: (file: File | string | null) => void
-  value: File | string | null
+  onChange: (
+    file: File | FileStatus<string, string> | string | undefined | null
+  ) => void
+  value: File | string | null | undefined
 }
-
-export const fiveMegaBytes = 5 * 1024 * 1024
 
 export function ImageUploadButton({
   onChange,
   value,
 }: ImageUploadButtonProperties) {
-  const acceptedFiles = { "image/*": [".png", ".jpg", ".jpeg"] }
-  const oneSecond = 1000
+  const acceptedFiles = {
+    "image/*": [".jpeg", ".jpg", ".png", ".webp"],
+  }
+  const sixMegaBytes = 6 * 1024 * 1024
 
   const dropzone = useDropzone({
     onDropFile: async (file: File) => {
-      await new Promise((resolve) => setTimeout(resolve, oneSecond))
+      if (file.size > sixMegaBytes) {
+        onChange(null)
+        return {
+          status: "error",
+          error: "",
+        }
+      }
+
       onChange(file)
       return {
         status: "success",
         result: URL.createObjectURL(file),
       }
     },
+    onRootError: (rejectedFiles) => {
+      console.log(rejectedFiles)
+
+      return {
+        status: "error",
+        result: rejectedFiles,
+      }
+    },
     validation: {
       accept: acceptedFiles,
-      maxSize: fiveMegaBytes,
-      maxFiles: 1,
+      maxSize: sixMegaBytes,
+      maxFiles: 2,
     },
   })
 
@@ -45,7 +63,7 @@ export function ImageUploadButton({
 
   useEffect(() => {
     if (!value && hasNewImage) {
-      dropzone.fileStatuses.forEach((f) => dropzone.onRemoveFile(f.id))
+      dropzone.fileStatuses.forEach((file) => dropzone.onRemoveFile(file.id))
     }
   }, [value, hasNewImage, dropzone])
 
@@ -62,24 +80,25 @@ export function ImageUploadButton({
 
         {displayImage && (
           <DropzoneFileList className="mb-[16.5px] w-40 rounded-[16px] bg-foreground not-dark:shadow-md">
-            {/* 1. Handle Newly Uploaded Files */}
             {dropzone.fileStatuses.map((file) => (
-              <FileItem
-                key={file.id}
-                fileName={file.fileName}
-                fileSize={file.file.size}
-                previewUrl={file.result}
-                status={file.status}
-                onRemove={() => {
-                  dropzone.onRemoveFile(file.id)
-                  onChange(null)
-                }}
-              />
+              <>
+                <FileItem
+                  key={file.id}
+                  fileName={file.fileName}
+                  fileSize={file.file.size}
+                  previewUrl={file.result}
+                  status={file.status}
+                  onRemove={() => {
+                    dropzone.onRemoveFile(file.id)
+                    onChange(null)
+                  }}
+                />
+              </>
             ))}
 
             {hasExistingImage && !hasNewImage && (
               <FileItem
-                fileName=""
+                fileName="Minha imagem"
                 fileSize={0}
                 previewUrl={value}
                 status="success"
