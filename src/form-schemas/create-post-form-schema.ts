@@ -16,11 +16,12 @@ export const CreatePostFormSchema = z.object({
     .string()
     .min(1, { message: "O post deve ter pelo menos 1 caractere." }),
   image: z
-    .union([z.instanceof(File), z.string()])
+    .union([z.instanceof(File), z.string(), z.null(), z.undefined()])
     .optional()
+    .nullable()
     .refine(
       (value) => {
-        if (!(value instanceof File)) return true
+        if (!value || typeof value === "string") return true
 
         return value.size <= FIVE_MEGA_BYTES_MAX_FILE_SIZE
       },
@@ -29,10 +30,10 @@ export const CreatePostFormSchema = z.object({
       }
     )
     .refine(
-      (file) => {
-        if (!file) return true
+      (value) => {
+        if (!value || typeof value === "string") return true
 
-        return ACCEPTED_IMAGE_TYPES.includes(file.type)
+        return ACCEPTED_IMAGE_TYPES.includes(value.type)
       },
       {
         message:
