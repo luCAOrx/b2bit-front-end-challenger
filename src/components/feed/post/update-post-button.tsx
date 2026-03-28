@@ -14,6 +14,7 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
+import { UpdatePostFormSchema } from "@/form-schemas/update-post-form-schema"
 import { convertFileToBase64 } from "@/helpers/convert-file-to-base64"
 import { useAuth } from "@/hooks/use-auth"
 import { Route } from "@/routes/index.route"
@@ -36,16 +37,6 @@ interface UpdatePostButtonProperties {
   title: string
   content: string
 }
-
-const UpdatePostFormSchema = z.object({
-  title: z
-    .string()
-    .min(3, { message: "O titúlo deve ter mais do que 2 caracteres." }),
-  content: z
-    .string()
-    .min(1, { message: "O post deve ter pelo menos 1 caractere." }),
-  image: z.any().optional(),
-})
 
 export function UpdatePostButton({
   postId,
