@@ -21,6 +21,7 @@ import {
   registerUser,
   type RegisterUserResponseError,
 } from "@services/mini-twitter-api/register-user"
+import { CustomInputGroup } from "../custom-input"
 
 export function Register() {
   const [showPassword, setShowPassword] = useState(false)
@@ -89,139 +90,65 @@ export function Register() {
             name="name"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  htmlFor="form-rhf-form-name"
-                  className={cn(
-                    form.getFieldState("name").error
-                      ? "text-red-500"
-                      : "align-middle text-sm leading-5 font-normal tracking-normal not-dark:text-text-secondary-foreground"
-                  )}
+              <CustomInputGroup.Root fieldState={fieldState}>
+                <CustomInputGroup.Input
+                  field={field}
+                  fieldState={fieldState}
+                  form={form}
+                  formFieldName="name"
+                  fieldLabelTitle="Nome"
+                  reactComponentInputProperties={{
+                    type: "text",
+                    placeholder: "Insira o seu nome",
+                  }}
                 >
-                  Nome
-                </FieldLabel>
-                <div
-                  className={cn(
-                    form.getFieldState("name").error
-                      ? "flex rounded-[8px] border border-red-500 bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                      : "flex rounded-[8px] border bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                  )}
-                >
-                  <InputGroup className="h-14.25 w-120 border-transparent! ring-0!">
-                    <InputGroupInput
-                      {...field}
-                      id="form-rhf-form-name"
-                      placeholder="Insira o seu nome"
-                      className="h-14.25 w-full border-none! bg-transparent! text-[16px]!"
-                      type="text"
-                      autoComplete="off"
-                    />
-                  </InputGroup>
-                  <InputGroupAddon
-                    align="inline-end"
-                    className="flex h-14.25 w-14 items-center justify-center"
-                  >
-                    <div className="group h-6 min-h-6 w-6 min-w-6 rounded-[8px]">
-                      <UserRound className="h-6 min-h-6 w-6 min-w-6 text-input-placeholder not-dark:text-text-secondary" />
-                    </div>
-                  </InputGroupAddon>
-                </div>
-                {fieldState.invalid && (
-                  <FieldError
-                    errors={[fieldState.error]}
-                    className="text-red-500"
-                  />
-                )}
-              </Field>
+                  <CustomInputGroup.Addon>
+                    <UserRound className="h-6 min-h-6 w-6 min-w-6 text-input-placeholder not-dark:text-text-secondary" />
+                  </CustomInputGroup.Addon>
+                </CustomInputGroup.Input>
+              </CustomInputGroup.Root>
             )}
           />
           <Controller
             name="email"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field>
-                <FieldLabel
-                  htmlFor="form-email"
-                  className={cn(
-                    form.getFieldState("email").error
-                      ? "text-red-500"
-                      : "align-middle text-sm leading-5 font-normal tracking-normal not-dark:text-text-secondary-foreground"
-                  )}
+              <CustomInputGroup.Root fieldState={fieldState}>
+                <CustomInputGroup.Input
+                  field={field}
+                  fieldState={fieldState}
+                  form={form}
+                  formFieldName="email"
+                  fieldLabelTitle="E-mail"
+                  reactComponentInputProperties={{
+                    type: "email",
+                    placeholder: "Insira o seu e-mail",
+                  }}
                 >
-                  E-mail
-                </FieldLabel>
-
-                <div
-                  className={cn(
-                    form.getFieldState("email").error
-                      ? "flex rounded-[8px] border border-red-500 bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                      : "flex rounded-[8px] border bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                  )}
-                >
-                  <InputGroup className="h-14.25 w-120 border-transparent! ring-0!">
-                    <InputGroupInput
-                      {...field}
-                      id="form-email"
-                      placeholder="Insira o seu e-mail"
-                      className="h-14.25 w-full border-none! bg-transparent! text-[16px]!"
-                      type="email"
-                      autoComplete="one-time-code"
-                    />
-                  </InputGroup>
-                  <InputGroupAddon
-                    align="inline-end"
-                    className="flex h-14.25 w-14 items-center justify-center"
-                  >
-                    <div className="group h-6 min-h-6 w-6 min-w-6 rounded-[8px]">
-                      <Mail className="h-6 min-h-6 w-6 min-w-6 text-input-placeholder not-dark:text-text-secondary" />
-                    </div>
-                  </InputGroupAddon>
-                </div>
-                {fieldState.invalid && (
-                  <FieldError
-                    errors={[fieldState.error]}
-                    className="text-red-500"
-                  />
-                )}
-              </Field>
+                  <CustomInputGroup.Addon>
+                    <Mail className="h-6 min-h-6 w-6 min-w-6 text-input-placeholder not-dark:text-text-secondary" />
+                  </CustomInputGroup.Addon>
+                </CustomInputGroup.Input>
+              </CustomInputGroup.Root>
             )}
           />
           <Controller
             name="password"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field>
-                <FieldLabel
-                  htmlFor="form-password"
-                  className={cn(
-                    form.getFieldState("password").error
-                      ? "text-red-500"
-                      : "align-middle text-sm leading-5 font-normal tracking-normal not-dark:text-text-secondary-foreground"
-                  )}
+              <CustomInputGroup.Root fieldState={fieldState}>
+                <CustomInputGroup.Input
+                  fieldState={fieldState}
+                  form={form}
+                  fieldLabelTitle="Senha"
+                  formFieldName="password"
+                  field={field}
+                  reactComponentInputProperties={{
+                    type: showPassword ? "text" : "password",
+                    placeholder: "Insira a sua senha",
+                  }}
                 >
-                  Senha
-                </FieldLabel>
-                <div
-                  className={cn(
-                    form.getFieldState("password").error
-                      ? "flex rounded-[8px] border border-red-500 bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                      : "flex rounded-[8px] border bg-input-background not-dark:border-2 not-dark:text-text-secondary not-dark:shadow-md placeholder:text-[14px] focus-within:border focus-within:border-[#FAFAFA] not-dark:focus-within:border not-dark:focus-within:border-text-secondary"
-                  )}
-                >
-                  <InputGroup className="h-14.25 w-120 border-transparent! ring-0!">
-                    <InputGroupInput
-                      {...field}
-                      id="form-password"
-                      placeholder="Insira a sua senha"
-                      className="h-14.25 w-full border-none! bg-transparent! text-[16px]!"
-                      type={showPassword ? "text" : "password"}
-                      autoComplete="off"
-                    />
-                  </InputGroup>
-                  <InputGroupAddon
-                    align="inline-end"
-                    className="flex h-14.25 w-14 items-center justify-center"
-                  >
+                  <CustomInputGroup.Addon>
                     <InputGroupButton
                       onClick={togglePasswordVisibility}
                       className="group h-6 min-h-6 w-6 min-w-6 cursor-pointer rounded-[8px] border-none bg-transparent! shadow-none hover:bg-transparent!"
@@ -232,15 +159,9 @@ export function Register() {
                         <EyeIcon className="group-hover:fill-text-text-secondary-foreground/30! group-hover:text-text-text-secondary-foreground/30! h-6 min-h-6 w-6 min-w-6 text-input-placeholder transition-colors not-dark:text-text-secondary not-dark:placeholder-input-placeholder group-hover:text-text-secondary-foreground/30!" />
                       )}
                     </InputGroupButton>
-                  </InputGroupAddon>
-                </div>
-                {fieldState.invalid && (
-                  <FieldError
-                    errors={[fieldState.error]}
-                    className="text-red-500"
-                  />
-                )}
-              </Field>
+                  </CustomInputGroup.Addon>
+                </CustomInputGroup.Input>
+              </CustomInputGroup.Root>
             )}
           />
 
