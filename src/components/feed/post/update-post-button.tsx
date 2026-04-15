@@ -1,3 +1,5 @@
+import { CustomForm } from "@/components/custom-form"
+import { CustomInputGroup } from "@/components/custom-input"
 import { ImageUploadButton } from "@/components/image-upload-button/image-upload-button"
 import SubmitLoadingButton from "@/components/submit-loading-button"
 import { Button } from "@/components/ui/button"
@@ -9,11 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
-import {
-  InputGroup,
-  InputGroupInput,
-  InputGroupTextarea,
-} from "@/components/ui/input-group"
 import { UpdatePostFormSchema } from "@/form-schemas/update-post-form-schema"
 import { convertFileToBase64 } from "@/helpers/convert-file-to-base64"
 import { useAuth } from "@/hooks/use-auth"
@@ -27,7 +24,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query"
 import type { AxiosError } from "axios"
 import { useState } from "react"
-import { Controller, FormProvider, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
@@ -136,82 +133,71 @@ export function UpdatePostButton({
           Atualizar
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-151.5! rounded-[12px] border border-solid bg-input-background px-4 not-dark:shadow-md [&_svg]:size-6!">
-        <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(handleUpdatePostSubmit)}>
-            <FieldGroup>
-              <Controller
-                name="title"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field className="mt-3 border-b not-dark:shadow-md">
-                    <InputGroup className="mt-5 mb-3 h-18 min-h-15 w-151.5 border-transparent! ring-0!">
-                      <InputGroupInput
-                        {...field}
-                        id="form-title"
-                        placeholder="Digite um titúlo para seu post"
-                        className="bg-input-foreground border-none align-middle text-[18px]! leading-7 text-white not-dark:text-input-placeholder not-dark:placeholder-input-placeholder placeholder:text-[18px] placeholder:leading-7 placeholder:font-normal"
-                        inputMode="text"
-                      />
-                    </InputGroup>
-                    {fieldState.invalid && (
-                      <FieldError
-                        errors={[fieldState.error]}
-                        className="text-[14px] text-red-500"
-                      />
-                    )}
-                  </Field>
-                )}
-              />
-              <Controller
-                name="content"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field className="not-dark:shadow-md in-dark:border-b in-dark:border-solid">
-                    <FieldGroup>
-                      <InputGroupTextarea
-                        {...field}
-                        id="form-content"
-                        placeholder="E aí, o que está rolando?"
-                        className="bg-input-foreground mt-5 mb-3 h-18 min-h-15 w-151.5 resize-none border-none pt-2 pr-3 pb-9 align-middle text-[18px]! leading-7 text-white not-dark:text-input-placeholder not-dark:placeholder-input-placeholder placeholder:text-[18px] placeholder:leading-7 placeholder:font-normal focus-visible:ring-0! focus-visible:ring-offset-0!"
-                        inputMode="text"
-                      />
-                    </FieldGroup>
-                    {fieldState.invalid && (
-                      <FieldError
-                        errors={[fieldState.error]}
-                        className="text-[14px] text-red-500"
-                      />
-                    )}
-                  </Field>
-                )}
-              />
+      <DialogContent>
+        <CustomForm.Root variant="postInputUpdate">
+          <CustomForm.Form
+            variant="postInput"
+            form={form}
+            handleSubmit={handleUpdatePostSubmit}
+          >
+            <Controller
+              name="title"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <CustomInputGroup.Root variant="post" fieldState={fieldState}>
+                  <CustomInputGroup.Input
+                    field={field}
+                    formFieldName="title"
+                    inputGroupVariant="postInputGroup"
+                    inputGroupInputVariant="postInputGroupInputVariant"
+                    placeholder="Digite um titúlo para seu post"
+                    type="text"
+                    inputMode="text"
+                  />
+                  <CustomInputGroup.Error fieldState={fieldState} />
+                </CustomInputGroup.Root>
+              )}
+            />
+            <Controller
+              name="content"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <CustomInputGroup.Root fieldState={fieldState} variant="post">
+                  <CustomInputGroup.TextArea
+                    field={field}
+                    formFieldName="content"
+                    placeholder="E aí, o que está rolando?"
+                    inputMode="text"
+                  />
+                  <CustomInputGroup.Error fieldState={fieldState} />
+                </CustomInputGroup.Root>
+              )}
+            />
 
-              <Controller
-                name="image"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field orientation="vertical">
-                    <FieldGroup
-                      {...field}
-                      className="flex justify-center not-dark:shadow-md in-dark:border-b"
-                    >
-                      <ImageUploadButton
-                        onChange={field.onChange}
-                        value={field.value}
-                      />
-                    </FieldGroup>
+            <Controller
+              name="image"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field orientation="vertical">
+                  <FieldGroup
+                    {...field}
+                    className="flex justify-center not-dark:shadow-md in-dark:border-b"
+                  >
+                    <ImageUploadButton
+                      onChange={field.onChange}
+                      value={field.value}
+                    />
+                  </FieldGroup>
 
-                    {fieldState.invalid && (
-                      <FieldError
-                        errors={[fieldState.error]}
-                        className="text-[14px] text-red-500"
-                      />
-                    )}
-                  </Field>
-                )}
-              />
-            </FieldGroup>
+                  {fieldState.invalid && (
+                    <FieldError
+                      errors={[fieldState.error]}
+                      className="text-[14px] text-red-500"
+                    />
+                  )}
+                </Field>
+              )}
+            />
             <DialogFooter className="flex justify-between border-none!">
               <DialogClose asChild>
                 <Button
@@ -231,8 +217,8 @@ export function UpdatePostButton({
                 </SubmitLoadingButton>
               )}
             </DialogFooter>
-          </form>
-        </FormProvider>
+          </CustomForm.Form>
+        </CustomForm.Root>
       </DialogContent>
     </Dialog>
   )
