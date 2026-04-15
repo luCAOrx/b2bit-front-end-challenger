@@ -1,7 +1,13 @@
 import type { ReactNode } from "react"
-import SubmitLoadingButton from "../submit-loading-button"
-import { Field, FieldGroup } from "../ui/field"
-import type { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form"
+import { FieldGroup } from "../ui/field"
+import {
+  FormProvider,
+  type FieldValues,
+  type SubmitHandler,
+  type UseFormReturn,
+} from "react-hook-form"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
 interface CustomFormRootProperties<
   TFieldValues extends FieldValues = FieldValues,
@@ -11,24 +17,34 @@ interface CustomFormRootProperties<
   handleSubmit: SubmitHandler<TFieldValues>
 }
 
+const customFormFormVariants = cva("", {
+  variants: {
+    variant: {
+      default: "",
+      postInput: "flex h-full w-151.5 flex-col gap-3",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
 export function CustomFormForm<TFieldValues extends FieldValues>({
   children,
   form,
   handleSubmit,
-}: CustomFormRootProperties<TFieldValues>) {
+  variant = "default",
+}: CustomFormRootProperties<TFieldValues> &
+  VariantProps<typeof customFormFormVariants>) {
   return (
-    <form onSubmit={form.handleSubmit(handleSubmit)} method="POST">
-      <FieldGroup>
-        {children}
-        <Field orientation="horizontal">
-          <SubmitLoadingButton
-            size="xs"
-            isSubmitting={form.formState.isSubmitting}
-          >
-            Continuar
-          </SubmitLoadingButton>
-        </Field>
-      </FieldGroup>
-    </form>
+    <FormProvider {...form}>
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        method="POST"
+        className={cn(customFormFormVariants({ variant }))}
+      >
+        <FieldGroup>{children}</FieldGroup>
+      </form>
+    </FormProvider>
   )
 }
