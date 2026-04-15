@@ -38,7 +38,7 @@ export function FileItem({
         )}
       </DropzoneTrigger>
 
-      <div className="flex items-center justify-between gap-2 bg-text-secondary-foreground/30 p-2 pl-4">
+      <div className="flex items-center justify-between gap-2 p-2 pl-4 not-dark:bg-[#E2E2EC]/50 in-dark:bg-text-secondary-foreground/30">
         <div className="min-w-0">
           <p className="truncate text-sm">{fileName}</p>
           <p className="text-xs text-text-secondary">
