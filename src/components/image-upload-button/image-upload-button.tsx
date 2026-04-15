@@ -68,46 +68,44 @@ export function ImageUploadButton({
   }, [value, hasNewImage, dropzone])
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <Dropzone {...dropzone}>
-        {!displayImage && (
-          <DropZoneArea className="group mb-2 h-8 min-h-8 w-8 min-w-8 cursor-pointer rounded-[8px] border-none bg-transparent! shadow-none hover:bg-transparent!">
-            <DropzoneTrigger>
-              <ImageIcon className="h-8 min-h-8 w-8 min-w-8 rounded-[8px] text-primary-button transition-colors group-hover:text-primary-button/50!" />
-            </DropzoneTrigger>
-          </DropZoneArea>
-        )}
+    <Dropzone {...dropzone}>
+      {!displayImage && (
+        <DropZoneArea className="mb-2 h-8 min-h-8 w-8 min-w-8 cursor-pointer rounded-[8px] border-none bg-transparent! shadow-none hover:bg-transparent!">
+          <DropzoneTrigger>
+            <ImageIcon className="h-8 min-h-8 w-8 min-w-8 rounded-[8px] text-primary-button transition-colors group-hover:text-primary-button/50!" />
+          </DropzoneTrigger>
+        </DropZoneArea>
+      )}
 
-        {displayImage && (
-          <DropzoneFileList className="mb-[16.5px] w-40 rounded-[16px] bg-foreground not-dark:shadow-md">
-            {dropzone.fileStatuses.map((file) => (
-              <>
-                <FileItem
-                  key={file.id}
-                  fileName={file.fileName}
-                  fileSize={file.file.size}
-                  previewUrl={file.result}
-                  status={file.status}
-                  onRemove={() => {
-                    dropzone.onRemoveFile(file.id)
-                    onChange(null)
-                  }}
-                />
-              </>
-            ))}
-
-            {hasExistingImage && !hasNewImage && (
+      {displayImage && (
+        <DropzoneFileList className="mb-[16.5px] w-40 rounded-[16px] bg-foreground not-dark:shadow-md">
+          {dropzone.fileStatuses.map((file) => (
+            <>
               <FileItem
-                fileName="Minha imagem"
-                fileSize={0}
-                previewUrl={value}
-                status="success"
-                onRemove={() => onChange(null)}
+                key={file.id}
+                fileName={file.fileName}
+                fileSize={file.file.size}
+                previewUrl={file.result}
+                status={file.status}
+                onRemove={() => {
+                  dropzone.onRemoveFile(file.id)
+                  onChange(null)
+                }}
               />
-            )}
-          </DropzoneFileList>
-        )}
-      </Dropzone>
-    </div>
+            </>
+          ))}
+
+          {hasExistingImage && !hasNewImage && (
+            <FileItem
+              fileName="Minha imagem"
+              fileSize={0}
+              previewUrl={value}
+              status="success"
+              onRemove={() => onChange(null)}
+            />
+          )}
+        </DropzoneFileList>
+      )}
+    </Dropzone>
   )
 }
