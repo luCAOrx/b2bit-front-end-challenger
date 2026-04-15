@@ -14,7 +14,8 @@ export const UpdatePostFormSchema = z.object({
     .min(3, { message: "O titúlo deve ter mais do que 2 caracteres." }),
   content: z
     .string()
-    .min(1, { message: "O post deve ter pelo menos 1 caractere." }),
+    .min(1, { message: "O post deve ter pelo menos 1 caractere." })
+    .max(250, { message: "O post deve ter no máximo 250 caracteres." }),
   image: z
     .union([z.instanceof(File), z.string(), z.null(), z.undefined()])
     .optional()
